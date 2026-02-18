@@ -1,0 +1,135 @@
+# R2R Coating MLOps Project Configuration
+
+project:
+  name: "R2R Coating Defect Detection"
+  version: "1.0.0"
+  phase: "Phase 1 - Sensor Model Development"
+
+# Database
+database:
+  type: "postgresql"
+  host: "${DB_HOST:localhost}"
+  port: "${DB_PORT:5432}"
+  user: "${DB_USER:postgres}"
+  password: "${DB_PASSWORD:password}"
+  database: "${DB_NAME:r2r_coating}"
+
+# Data Paths
+data:
+  raw_path: "./data/raw"
+  processed_path: "./data/processed"
+  features_path: "./data/features"
+  
+datasets:
+  - name: "machine_failure"
+    path: "data/raw/machine_failure_prediction.csv"
+    type: "CSV"
+    
+  - name: "nasa_bearing"
+    path: "data/raw/nasa_bearing/"
+    type: "Directory"
+
+# Feature Engineering
+features:
+  window_sizes: [10, 30, 60]  # 시계열 윈도우 크기
+  rolling_stats:
+    - "mean"
+    - "std"
+    - "min"
+    - "max"
+    - "median"
+  
+  nasa_bearing_features:
+    - "rms"          # Root Mean Square
+    - "peak"         # Peak value
+    - "kurtosis"     # Kurtosis
+    - "skewness"     # Skewness
+
+# Training
+training:
+  test_size: 0.2
+  val_size: 0.1
+  random_state: 42
+  
+  epochs: 50
+  batch_size: 32
+  learning_rate: 0.001
+  
+  early_stopping:
+    enabled: true
+    patience: 10
+    metric: "val_f1_macro"
+    
+  class_weights: true
+
+# Models
+models:
+  baseline:
+    type: "RandomForest"
+    params:
+      n_estimators: 100
+      max_depth: 20
+      random_state: 42
+  
+  xgboost:
+    type: "XGBoost"
+    params:
+      n_estimators: 100
+      max_depth: 5
+      learning_rate: 0.1
+      
+  lstm:
+    type: "LSTM"
+    params:
+      hidden_size: 64
+      num_layers: 2
+      dropout: 0.2
+      
+  ensemble:
+    type: "VotingClassifier"
+    models: ["baseline", "xgboost", "lstm"]
+
+# MLflow
+mlflow:
+  tracking_uri: "http://localhost:5000"
+  experiment_name: "r2r-coating"
+  run_name_prefix: "r2r_phase1"
+  
+  log_params: true
+  log_metrics: true
+  log_artifacts: true
+
+# API
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  reload: true
+  log_level: "info"
+  
+  model_path: "./ml/models/production"
+  model_version: "v1"
+
+# Monitoring
+monitoring:
+  prometheus_port: 9090
+  grafana_port: 3000
+  
+  metrics:
+    - "f1_macro"
+    - "recall"
+    - "precision"
+    - "inference_time"
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/r2r.log"
+
+# Performance Thresholds
+thresholds:
+  f1_score: 0.85
+  recall: 0.90
+  precision: 0.80
+  inference_time_ms: 100  # P95

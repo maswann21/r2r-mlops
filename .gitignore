@@ -1,0 +1,77 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Data
+data/raw/*
+data/processed/*
+data/features/*
+!data/.gitkeep
+
+data/
+*.jpg
+*.png
+*.pth
+*.pkl
+
+
+# Models
+ml/models/**/*.pth
+ml/models/**/*.pkl
+ml/models/**/*.joblib
+!ml/models/.gitkeep
+
+# MLflow
+ml/experiments/mlruns/
+.mlflow/
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env
+.env.local
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# DVC
+.dvc/
+.dvc.lock
+
+# Temp files
+*.tmp
+*.temp

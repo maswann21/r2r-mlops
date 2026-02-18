@@ -1,0 +1,99 @@
+# Model Hyperparameters
+
+# Baseline Models
+random_forest:
+  n_estimators: 100
+  max_depth: 20
+  min_samples_split: 5
+  min_samples_leaf: 2
+  random_state: 42
+
+xgboost:
+  n_estimators: 100
+  max_depth: 5
+  learning_rate: 0.1
+  subsample: 0.8
+  colsample_bytree: 0.8
+  random_state: 42
+
+lightgbm:
+  n_estimators: 100
+  max_depth: 7
+  learning_rate: 0.1
+  num_leaves: 31
+  subsample: 0.8
+  colsample_bytree: 0.8
+
+# Deep Learning Models
+lstm:
+  input_size: null  # Will be set based on feature dimension
+  hidden_size: 64
+  num_layers: 2
+  dropout: 0.2
+  bidirectional: true
+  
+  optimizer: "adam"
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  
+  epochs: 50
+  batch_size: 32
+  early_stopping_patience: 10
+
+gru:
+  input_size: null
+  hidden_size: 64
+  num_layers: 2
+  dropout: 0.2
+  bidirectional: true
+  
+  optimizer: "adam"
+  learning_rate: 0.001
+  epochs: 50
+  batch_size: 32
+
+cnn1d:
+  input_channels: 1
+  num_filters: [32, 64, 128]
+  kernel_size: 3
+  dropout: 0.2
+  
+  optimizer: "adam"
+  learning_rate: 0.001
+  epochs: 50
+  batch_size: 32
+
+# Hyperparameter Tuning (Optuna)
+optuna:
+  n_trials: 100
+  timeout: 3600  # seconds
+  
+  rf_search_space:
+    n_estimators: [50, 500]
+    max_depth: [5, 50]
+    min_samples_split: [2, 10]
+  
+  xgb_search_space:
+    max_depth: [3, 10]
+    learning_rate: [0.001, 0.1]
+    subsample: [0.5, 1.0]
+
+# Data Augmentation & Class Imbalance
+imbalance_handling:
+  method: "smote"  # 또는 "class_weight", "focal_loss"
+  sampling_strategy: "auto"
+  
+  class_weights:
+    - 1.0  # Normal
+    - 2.0  # Heat Dissipation
+    - 2.0  # Power
+    - 2.0  # Overstrain
+    - 2.0  # Tool Wear
+    - 1.5  # Random
+
+# Cross-validation
+cross_validation:
+  method: "stratified_k_fold"  # 또는 "time_series_split"
+  n_splits: 5
+  shuffle: true
+  random_state: 42
