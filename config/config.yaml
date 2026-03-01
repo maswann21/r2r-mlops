@@ -107,7 +107,7 @@ api:
   reload: true
   log_level: "info"
   
-  model_path: "./ml/models/production"
+  model_path: "./ml/models/vision/classification"
   model_version: "v1"
 
 # Monitoring

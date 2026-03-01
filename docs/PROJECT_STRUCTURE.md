@@ -26,10 +26,7 @@ C:\Users\mash8\sideproject\
 │   │   ├── experiments/             ← MLflow 실험 추적
 │   │   └── models/                  ← 저장된 모델 (여기에 저장!)
 │   │       ├── vision/
-│   │       │   ├── classification/
-│   │       │   ├── detection/
-│   │       │   ├── segmentation/
-│   │       │   └── production/
+│   │       │   └── classification/
 │   │       └── sensor/
 │   │           ├── baseline/
 │   │           ├── lstm/
@@ -67,13 +64,7 @@ C:\Users\mash8\sideproject\R2R\ml\models\
 ```
 ml/models/vision/
 ├── classification/v1/          ← Classification 모델 버전 1
-├── classification/v2/          ← Classification 모델 버전 2
-├── detection/v1/               ← Detection 모델
-├── segmentation/v1/            ← Segmentation 모델
-└── production/                 ← 프로덕션 최종 모델
-    ├── classification/
-    ├── detection/
-    └── segmentation/
+└── classification/v2/          ← Classification 모델 버전 2
 ```
 
 #### 센서 모델
@@ -121,9 +112,7 @@ ml/models/vision/classification/v1/
 ```
 1. 데이터 준비
    ↓
-   data/classification/  (images + labels.csv)
-   data/detection/       (images + labels/*.txt)
-   data/segmentation/    (images + masks/)
+   db/classification/  (images + labels.csv)
    
 2. 모델 학습
    ↓
@@ -132,16 +121,10 @@ ml/models/vision/classification/v1/
 3. 모델 저장
    ↓
    ml/models/vision/classification/v1/
-   ml/models/vision/detection/v1/
-   ml/models/vision/segmentation/v1/
-   
-4. 모델 평가 & 선택
+
+4. API 배포
    ↓
-   최고 성능 모델을 production으로 이동
-   
-5. API 배포
-   ↓
-   api/main.py 에서 production 모델 로딩
+   api/main.py 에서 classification 모델 로딩
 ```
 
 ---
@@ -181,9 +164,7 @@ torch.save(model, "ml/models/model.pth")  # ✗
 
 | 항목 | 위치 | 상태 |
 |------|------|------|
-| **Classification 데이터** | `R2R/data/classification/` | ✅ 준비됨 |
-| **Detection 데이터** | `R2R/data/detection/` | ✅ 준비됨 |
-| **Segmentation 데이터** | `R2R/data/segmentation/` | ✅ 준비됨 |
+| **Classification 데이터** | `R2R/db/classification/` | ✅ 준비됨 |
 | **Vision 모델 코드** | `R2R/src/models/vision/` | ✅ 생성됨 |
 | **센서 모델 코드** | `R2R/src/models/sensor/` | ✅ 생성됨 |
 | **모델 저장소** | `R2R/ml/models/` | ✅ 폴더 생성됨 |
@@ -205,17 +186,7 @@ torch.save(model, "ml/models/model.pth")  # ✗
    → ml/models/vision/classification/v1/
    ```
 
-3. **Detection 모델 학습**
-   ```bash
-   jupyter notebook notebooks/vision/03_detection_eda.ipynb
-   ```
-
-4. **Segmentation 모델 학습**
-   ```bash
-   jupyter notebook notebooks/vision/05_segmentation_eda.ipynb
-   ```
-
-5. **센서 모델 학습**
+3. **센서 모델 학습**
    ```bash
    jupyter notebook notebooks/sensor/01_eda.ipynb
    ```

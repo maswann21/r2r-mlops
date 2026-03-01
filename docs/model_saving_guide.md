@@ -7,32 +7,13 @@
 ```
 ml/models/
 ├── vision/                          # Vision 모델들
-│   ├── classification/              # Classification 모델 저장소
-│   │   ├── v1/                      # 버전별 저장
-│   │   │   ├── resnet18.pth         # 모델 가중치
-│   │   │   ├── config.yaml          # 모델 설정
-│   │   │   └── metrics.json         # 성능 지표
-│   │   ├── v2/
-│   │   └── latest -> v2/            # 최신 버전 심볼릭 링크
-│   │
-│   ├── detection/                   # Detection 모델 저장소
-│   │   ├── v1/
-│   │   │   ├── yolov3.pth
-│   │   │   ├── config.yaml
-│   │   │   └── metrics.json
-│   │   └── latest -> v1/
-│   │
-│   ├── segmentation/                # Segmentation 모델 저장소
-│   │   ├── v1/
-│   │   │   ├── unet.pth
-│   │   │   ├── config.yaml
-│   │   │   └── metrics.json
-│   │   └── latest -> v1/
-│   │
-│   └── production/                  # 프로덕션 배포 모델 (최신 검증됨)
-│       ├── classification/
-│       ├── detection/
-│       └── segmentation/
+│   └── classification/              # Classification 모델 저장소
+│       ├── v1/                      # 버전별 저장
+│       │   ├── resnet18.pth         # 모델 가중치
+│       │   ├── config.yaml          # 모델 설정
+│       │   └── metrics.json         # 성능 지표
+│       ├── v2/
+│       └── latest -> v2/            # 최신 버전 심볼릭 링크
 │
 └── sensor/                          # 센서 모델들
     ├── baseline/
@@ -79,28 +60,6 @@ trainer.fit(model, train_loader, val_loader)
 trainer.save_checkpoint("ml/models/vision/classification/v1/resnet18.pth")
 # 또는
 torch.save(model.model.state_dict(), "ml/models/vision/classification/v1/resnet18.pth")
-```
-
-#### Detection
-```python
-from src.models.vision import FasterRCNNDetector
-
-model = FasterRCNNDetector(num_classes=3)
-trainer = pl.Trainer(max_epochs=50)
-trainer.fit(model, train_loader, val_loader)
-
-torch.save(model.state_dict(), "ml/models/vision/detection/v1/fasterrcnn.pth")
-```
-
-#### Segmentation
-```python
-from src.models.vision import UNetSegmentor
-
-model = UNetSegmentor(num_classes=4)
-trainer = pl.Trainer(max_epochs=50)
-trainer.fit(model, train_loader, val_loader)
-
-torch.save(model.state_dict(), "ml/models/vision/segmentation/v1/unet.pth")
 ```
 
 ### 2. 센서 모델
@@ -311,10 +270,7 @@ trainer = pl.Trainer(
 model_paths:
   vision:
     classification: "./ml/models/vision/classification"
-    detection: "./ml/models/vision/detection"
-    segmentation: "./ml/models/vision/segmentation"
-    production: "./ml/models/vision/production"
-  
+
   sensor:
     baseline: "./ml/models/sensor/baseline"
     lstm: "./ml/models/sensor/lstm"
