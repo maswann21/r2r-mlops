@@ -194,7 +194,7 @@ Vision model predictions are stored in `predictions` table and joined with `raw_
 ### Vision Data
 
 ```
-db/classification/
+data/classification/
   ├── images/          # PNG/JPG coating surface images
   └── labels.csv       # Multi-label CSV: file_name, Surface_Crack, Delamination, Pinhole, unclassified
 ```

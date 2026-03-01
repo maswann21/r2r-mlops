@@ -29,6 +29,10 @@ datasets:
     path: "data/raw/nasa_bearing/"
     type: "Directory"
 
+  - name: "vision_classification"
+    path: "data/classification/"
+    type: "Directory"
+
 # Feature Engineering
 features:
   window_sizes: [10, 30, 60]  # 시계열 윈도우 크기

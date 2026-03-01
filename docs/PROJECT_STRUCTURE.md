@@ -15,8 +15,7 @@ C:\Users\mash8\sideproject\
 │   │
 │   ├── src/                         ← 소스 코드
 │   │   └── models/
-│   │       ├── vision/              ← Vision 모델 정의
-│   │       └── sensor/              ← 센서 모델 정의
+│   │       └── vision/              ← Vision 모델 정의
 │   │
 │   ├── notebooks/                   ← Jupyter 분석 노트북
 │   │   ├── vision/                  ← Vision 모델 분석
@@ -25,12 +24,8 @@ C:\Users\mash8\sideproject\
 │   ├── ml/
 │   │   ├── experiments/             ← MLflow 실험 추적
 │   │   └── models/                  ← 저장된 모델 (여기에 저장!)
-│   │       ├── vision/
-│   │       │   └── classification/
-│   │       └── sensor/
-│   │           ├── baseline/
-│   │           ├── lstm/
-│   │           └── production/
+│   │       └── vision/
+│   │           └── classification/
 │   │
 │   ├── config/                      ← 설정 파일
 │   ├── docker/                      ← Docker 설정
@@ -112,7 +107,7 @@ ml/models/vision/classification/v1/
 ```
 1. 데이터 준비
    ↓
-   db/classification/  (images + labels.csv)
+   data/classification/  (images + labels.csv)
    
 2. 모델 학습
    ↓
@@ -164,10 +159,9 @@ torch.save(model, "ml/models/model.pth")  # ✗
 
 | 항목 | 위치 | 상태 |
 |------|------|------|
-| **Classification 데이터** | `R2R/db/classification/` | ✅ 준비됨 |
+| **Classification 데이터** | `R2R/data/classification/` | ✅ 준비됨 |
 | **Vision 모델 코드** | `R2R/src/models/vision/` | ✅ 생성됨 |
-| **센서 모델 코드** | `R2R/src/models/sensor/` | ✅ 생성됨 |
-| **모델 저장소** | `R2R/ml/models/` | ✅ 폴더 생성됨 |
+| **모델 저장소** | `R2R/ml/models/vision/` | ✅ 폴더 생성됨 |
 | **노트북** | `R2R/notebooks/vision/` | 🔄 작성 필요 |
 | **MLOps 인프라** | `R2R/docker/` | 🔄 구성 필요 |
 

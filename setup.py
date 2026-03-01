@@ -29,7 +29,6 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "r2r-train=src.training.train:main",
             "r2r-api=api.main:main",
         ],
     },
