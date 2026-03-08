@@ -11,15 +11,14 @@ R2R Coating MLOps 시스템의 PostgreSQL 데이터베이스 스키마
 ```
 raw_sensor_data
 ├── id (PK)
-├── timestamp
-├── temperature, rotation_speed, torque, tool_wear
-├── operational_setting_1, 2, 3
-├── product_type
-├── defect_type
+├── footfall, temp_mode, aq, uss, cs
+├── voc, rp, ip
+├── temperature
+├── fail
 └── created_at
 ```
 
-**목적**: Kaggle Machine Failure 데이터 저장
+**목적**: IoT 센서 데이터 저장 (data/raw/data.csv 기반)
 
 ---
 
@@ -170,8 +169,6 @@ model_performance_logs
 
 ```sql
 -- 조회 성능 최적화
-idx_raw_sensor_timestamp          -- 시간대별 조회
-idx_raw_sensor_defect_type        -- 불량 유형별 조회
 idx_predictions_model_id          -- 모델별 예측 조회
 idx_predictions_created_at        -- 시간대별 예측 조회
 idx_experiments_run_id            -- 실험 조회
@@ -186,11 +183,9 @@ idx_model_performance_date        -- 날짜별 성능 조회
 향후 대량의 데이터 처리를 위해 시간 기반 파티셔닝 적용 예정:
 
 ```sql
--- raw_sensor_data 월별 파티셔닝
-PARTITION BY RANGE (DATE_TRUNC('month', timestamp))
-├── 2024-01
-├── 2024-02
-└── ...
+-- raw_sensor_data 파티셔닝 (향후 대량 데이터 시 적용)
+-- 현재 timestamp 컬럼 없으므로 id 기반 range 파티셔닝 고려
+PARTITION BY RANGE (id)
 ```
 
 ---

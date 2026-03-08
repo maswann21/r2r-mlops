@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /mnt/c/Users/mash8/sideproject/R2R/data -type f -name \"*.csv\" -o -name \"*.txt\" -o -name \"*.json\" -o -name \"*.pkl\" 2>/dev/null | head -50)",
+      "Bash(find /mnt/c/Users/mash8/sideproject/R2R -maxdepth 3 -name \"*db*\" -o -name \"*database*\" -o -name \"*init*\" 2>/dev/null | grep -v venv | head -20)",
+      "Bash(grep -r \"psycopg\\\\|sqlalchemy\\\\|DATABASE_URL\\\\|postgres\" /mnt/c/Users/mash8/sideproject/R2R --include=\"*.py\" 2>/dev/null | grep -v venv | head -20)",
+      "Bash(find /mnt/c/Users/mash8/sideproject/R2R -maxdepth 2 -type f -name \"*.py\" | grep -v venv | xargs ls -la 2>/dev/null | head -30)",
+      "Bash(ls -la /mnt/c/Users/mash8/sideproject/R2R/*.py 2>/dev/null)",
+      "Bash(grep -r \"class.*Database\\\\|def.*connect\\\\|sqlalchemy\\\\|create_engine\" /mnt/c/Users/mash8/sideproject/R2R --include=\"*.py\" 2>/dev/null | grep -v venv)",
+      "Bash(grep -r \"create_engine\\\\|psycopg2\\\\|postgres\\\\|connection\\\\|Database\" /mnt/c/Users/mash8/sideproject/R2R --include=\"*.py\" --include=\"*.yml\" --include=\"*.yaml\" 2>/dev/null | grep -v venv | head -30)"
+    ]
+  }
+}

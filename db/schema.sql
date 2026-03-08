@@ -3,18 +3,17 @@
 -- Raw Data Layer
 CREATE TABLE IF NOT EXISTS raw_sensor_data (
     id SERIAL PRIMARY KEY,
-    timestamp TIMESTAMP NOT NULL,
-    temperature FLOAT,
-    rotation_speed FLOAT,
-    torque FLOAT,
-    tool_wear FLOAT,
-    operational_setting_1 FLOAT,
-    operational_setting_2 FLOAT,
-    operational_setting_3 FLOAT,
-    product_type VARCHAR(50),
-    defect_type VARCHAR(50),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE(timestamp, product_type)
+    footfall INT,
+    temp_mode INT,
+    aq INT,
+    uss INT,
+    cs INT,
+    voc INT,
+    rp INT,
+    ip INT,
+    temperature INT,
+    fail INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- NASA Bearing Data
@@ -114,8 +113,6 @@ CREATE TABLE IF NOT EXISTS model_performance_logs (
 );
 
 -- Indexes for performance
-CREATE INDEX idx_raw_sensor_timestamp ON raw_sensor_data(timestamp);
-CREATE INDEX idx_raw_sensor_defect_type ON raw_sensor_data(defect_type);
 CREATE INDEX idx_predictions_model_id ON predictions(model_id);
 CREATE INDEX idx_predictions_created_at ON predictions(created_at);
 CREATE INDEX idx_experiments_run_id ON experiments(run_id);
